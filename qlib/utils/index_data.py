@@ -504,9 +504,9 @@ class IndexData(metaclass=index_data_ops_creator):
 
     def fillna(self, value=0.0, inplace: bool = False):
         if inplace:
-            self.data = np.nan_to_num(self.data, nan=value)
+            self.data = np.nan_to_num(self.data, nan=value, posinf=np.inf, neginf=-np.inf)
         else:
-            return self.__class__(np.nan_to_num(self.data, nan=value), *self.indices)
+            return self.__class__(np.nan_to_num(self.data, nan=value, posinf=np.inf, neginf=-np.inf), *self.indices)
 
     def count(self):
         return len(self.data[~np.isnan(self.data)])
